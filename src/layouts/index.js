@@ -213,7 +213,7 @@ class Layout extends PureComponent {
                   <div className="authentication__form">
                     <div className="auth__title">BECOME A MEMBER</div>
                     <div className="auth__sub">
-                      DISCOVER UNIQUE, ONE OF A KIND, OR SIMPLY BEATIFUL
+                      DISCOVER UNIQUE, ONE OF A KIND, OR SIMPLY BEAUTIFUL
                       SURFBOARDS FOR SALE IN LOS ANGELES
                     </div>
                     <div className="auth__btw">( IT’S 100% FREE, BTW. )</div>
