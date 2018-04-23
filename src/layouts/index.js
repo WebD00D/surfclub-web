@@ -155,7 +155,7 @@ class Layout extends PureComponent {
               <a
                 className="insta-link"
                 target="_blank"
-                href="https://www.instagram.com/surfclub.la/"
+                href="https://www.instagram.com/surfclub_la/"
               >
                 INSTA
               </a>
