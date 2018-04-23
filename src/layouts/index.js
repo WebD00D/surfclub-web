@@ -19,11 +19,16 @@ class Layout extends PureComponent {
       email: '',
       authenticated: false,
       error: '',
+      loginButtonText: 'Enter Site'
     }
   }
 
   authenticateUser() {
     // check if they are user..
+
+    this.setState({
+      loginButtonText: 'LOADING...'
+    })
 
     let emailEncoded = this.state.email;
 
@@ -88,6 +93,7 @@ class Layout extends PureComponent {
                   console.log('ERROR', error)
                   this.setState({
                     error: errorMessage,
+                    loginButtonText: 'Enter Site'
                   })
                 }.bind(this)
               )
@@ -237,7 +243,7 @@ class Layout extends PureComponent {
                       type="text"
                     />
                     <button onClick={() => this.authenticateUser()}>
-                      Enter Site
+                      {this.state.loginButtonText}
                     </button>
                     {this.state.error ? <div className="error-msg">Please enter an email </div> : ""}
                   </div>
