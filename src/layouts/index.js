@@ -25,7 +25,15 @@ class Layout extends PureComponent {
   authenticateUser() {
     // check if they are user..
 
-    let emailEncoded = this.state.email
+    let emailEncoded = this.state.email;
+
+
+    if ( emailEncoded.trim() === "" ) {
+      this.setState({
+        error: 'Invalid email'
+      })
+      return;
+    }
 
     emailEncoded = emailEncoded.replace(/@/g, '*')
     emailEncoded = emailEncoded.replace(/\./g, '^')
@@ -231,6 +239,7 @@ class Layout extends PureComponent {
                     <button onClick={() => this.authenticateUser()}>
                       Enter Site
                     </button>
+                    {this.state.error ? <div className="error-msg">Please enter an email </div> : ""}
                   </div>
                 </div>
               )}
