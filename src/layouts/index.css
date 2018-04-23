@@ -950,6 +950,8 @@ pre tt:after {
   font-size: 8px;
   text-align: center;
   width: 280px;
+  box-shadow: none;
+  border-radius: 0px;
 }
 
 .coming-soon {
@@ -1031,12 +1033,11 @@ pre tt:after {
 }
 
 @media (max-width: 940px) {
-
   .authentication {
     height: auto;
     margin-top: 40px;
   }
-  
+
   .surf-club-wrap {
     flex-direction: column;
   }
