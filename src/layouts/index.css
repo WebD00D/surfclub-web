@@ -953,6 +953,9 @@ pre tt:after {
   box-shadow: none;
   border-radius: 0px;
   border-style:solid;
+  -webkit-appearance: none;
+	 -moz-appearance: none;
+	 appearance: none;
 }
 
 .coming-soon {
