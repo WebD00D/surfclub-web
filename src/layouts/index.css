@@ -625,8 +625,27 @@ pre tt:after {
 
 /* SITE SPECIFIC STYLES */
 
+.cta--bottom {
+  background-color: #252525;
+  position: fixed;
+  bottom: 0px;
+  height: 40px;
+  width: 100%;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: sans-serif;
+  color: #FFFFFF;
+  letter-spacing: 2px;
+  font-size: 8px;
+  cursor: pointer;
+}
+
+
 .surf-club-wrap {
   display: flex;
+  position: relative;
 }
 
 .surf-club-left {
@@ -646,10 +665,7 @@ pre tt:after {
   align-items: center;
   width: 50%;
   background-color: orange;
-  background: linear-gradient(
-      rgba(237, 203, 185, 0.6),
-      rgba(237, 203, 185, 0.6)
-    ),
+  background: linear-gradient(rgba(237, 203, 185, 0.5), rgba(237, 203, 185, 0.3)),
     url('https://images.ctfassets.net/cn4bn1z4mmvm/qmlqhgFpu0kgqYSWOSGmm/6cac21669b6ea9c3f8730d006e1819d5/MalibuSurfer.jpg');
   background-size: cover;
   background-repeat: no-repeat;
@@ -657,24 +673,65 @@ pre tt:after {
 
 .banner {
   letter-spacing: 10px;
-  font-family: sans-serif;
   text-transform: uppercase;
-  font-weight: 600;
-  font-size: 27px;
+  font-weight: 700;
+  font-size: 20px;
   color: white;
   text-align: center;
   width: 500px;
   line-height: 41px;
+  font-family: sans-serif;
+}
+
+.surfclubloves-wrap {
+  position: absolute;
+  right: 30px;
+  display: flex;
+
+}
+
+.surf-club-logo {
+  font-family: sans-serif;
+  color: #010103;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 10px;
+  transition: 0.2s ease;
+  font-style: italic;
+}
+
+.surfclubloves {
+  font-family: sans-serif;
+  color: #010103;
+  text-decoration: none;
+  font-size: 8px;
+  letter-spacing: 2px;
+  margin-left: 18px;
+  transition: 0.2s ease;
+}
+
+.surfclubloves:hover {
+  opacity: 0.8;
 }
 
 .nav {
   position: fixed;
   z-index: 3;
   display: flex;
+  flex-direction: column;
   width: 100%;
   justify-content: center;
   align-items: center;
-  height: 80px;
+  height: 60px;
+  /*background-color: #010103;*/
+}
+
+.advertisement--top {
+  border: 1px solid black;
+  height: 100px;
+  width: 100%;
+  position: fixed;
 }
 
 .board-wrap {
@@ -682,7 +739,7 @@ pre tt:after {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding-top: 150px;
+  padding-top: 100px;
 }
 
 .board {
@@ -710,6 +767,19 @@ pre tt:after {
   background-repeat: no-repeat;
   position: relative;
   opacity: 0.6;
+  transition: 1s ease;
+  z-index: 2;
+}
+
+.board-image-mask {
+  height: 400px;
+  width: 300px;
+  background-color: #f2f1ef;
+  z-index: 1;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .board__meta {
@@ -717,7 +787,7 @@ pre tt:after {
   font-family: sans-serif;
   text-transform: uppercase;
   font-weight: 400;
-  font-size: 10px;
+  font-size: 9px;
 }
 
 .insta-link {
@@ -751,6 +821,7 @@ pre tt:after {
   margin-top: 22px;
   cursor: pointer;
   transition: 0.2s ease;
+  width: 200px;
 }
 
 .board button:hover {
@@ -804,7 +875,6 @@ pre tt:after {
 
 .board-deets__meta-button {
   letter-spacing: 4px;
-  font-family: sans;
   font-family: sans-serif;
   text-transform: uppercase;
   font-weight: 400;
@@ -822,6 +892,13 @@ pre tt:after {
   color: #edcbb9;
   border-bottom: 1px solid #edcbb9;
   cursor: pointer;
+}
+
+.small-font {
+  font-family: sans-serif;
+  text-transform: uppercase;
+  font-weight: 400;
+  font-size: 10px;
 }
 
 .board-deets__spacing {
@@ -916,6 +993,19 @@ pre tt:after {
   margin-top: 40px;
 }
 
+.label {
+  letter-spacing: 4px;
+  font-family: sans-serif;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 10px;
+  line-height: 18px;
+  text-align: center;
+  color: #000000;
+  margin-bottom: 4px;
+  margin-top: 12px;
+}
+
 .authentication__form button {
   letter-spacing: 4px;
   font-family: sans-serif;
@@ -952,10 +1042,10 @@ pre tt:after {
   width: 280px;
   box-shadow: none;
   border-radius: 0px;
-  border-style:solid;
+  border-style: solid;
   -webkit-appearance: none;
-	 -moz-appearance: none;
-	 appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 
 .coming-soon {
@@ -1036,7 +1126,53 @@ pre tt:after {
   }
 }
 
+.show-love {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  background-color: rgb(237, 203, 185);
+  position: absolute;
+  top: -12px;
+  left: -12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-family: sans-serif;
+  cursor: pointer;
+  transition: 0.2s ease;
+  color: seashell;
+}
+
+.show-love span {
+  position: absolute;
+  left: -35px;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: #808080;
+  font-weight: 300;
+  width: 35px;
+  text-align: center;
+}
+
+.show-love:hover {
+  color: brown;
+
+  -webkit-box-shadow: 2px 2px 12px -4px rgba(0, 0, 0, 0.68);
+  -moz-box-shadow: 2px 2px 12px -4px rgba(0, 0, 0, 0.68);
+  box-shadow: 2px 2px 12px -4px rgba(0, 0, 0, 0.68);
+}
+
+.show-love:active {
+  box-shadow: none;
+  transform: scale(0.95);
+}
+
 @media (max-width: 940px) {
+  .nav {
+    align-items: flex-start;
+    padding-left: 30px;
+  }
   .authentication {
     height: auto;
     margin-top: 40px;
