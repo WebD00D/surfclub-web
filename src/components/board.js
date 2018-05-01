@@ -70,7 +70,6 @@ class Board extends React.Component {
       'board__deets--open': this.state.showDetails,
     })
 
-    console.log("BOARD DEETS",this.props.shopDeets)
 
     return (
       <div className="board">
