@@ -276,6 +276,10 @@ body {
     width: 50px;
   }
 
+  .board-list-sold {
+    width: 50px;
+  }
+
   .heart-wrap {
     width: 30px;
   }
@@ -325,5 +329,32 @@ body {
 
   .board-photo {
     border: none;
+  }
+}
+
+
+.mobile-top-ad {
+
+  height: auto;
+  width: 100%;
+
+}
+
+@media ( min-width: 401px ) {
+  .mobile-top-ad {
+    display: none;
+  }
+}
+
+@media (max-width: 400px) {
+
+  .mobile-top-ad {
+    position:  fixed;
+  }
+  .brand-column {
+    top:55px;
+  }
+  .content {
+    top: 206px;
   }
 }

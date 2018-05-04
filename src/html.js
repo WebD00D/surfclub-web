@@ -65,15 +65,11 @@ module.exports = props => {
           `,
           }}
         />
-
         <script
           async
           src="https://www.googletagmanager.com/gtag/js?id=UA-118033416-1"
         />
-
         <link rel="stylesheet" href="https://use.typekit.net/lct0zqh.css" />
-
-
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -87,6 +83,7 @@ module.exports = props => {
           }}
         />
 
+        
         <div className="site-wrapper">
           <div
             id="___gatsby"
