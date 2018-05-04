@@ -73,7 +73,7 @@ class Layout extends PureComponent {
 
     ReactGA.event({
       category: 'BOARD CLICK',
-      action: `User clicked on ${name}`,
+      action: `User viewed a board`,
     })
 
     window.scrollTo(0, 0)
