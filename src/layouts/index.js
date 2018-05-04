@@ -43,7 +43,8 @@ class Layout extends PureComponent {
 
       loaderOpacity: '1',
       photoOpacity: '0',
-      opacity: '0'
+      opacity: '0',
+      loaderOpacity: '1',
     }
   }
 
@@ -77,9 +78,11 @@ class Layout extends PureComponent {
 
     setTimeout(function(){
       this.setState({
-        'opacity': '1'
+        opacity: '1',
+        loaderOpacity: '0'
+
       })
-    }.bind(this),1500)
+    }.bind(this),2000)
 
   }
 
@@ -256,7 +259,7 @@ class Layout extends PureComponent {
             </a>
 
             <div
-              onClick={() => this.setState({ menuHidden: true, photoOpacity: '0' })}
+              onClick={() => this.setState({ menuHidden: true, photoOpacity: '0', loaderOpacity: '1' })}
               className={menuClass}
             >
               <i className="fa fa-long-arrow-left" />
@@ -272,10 +275,8 @@ class Layout extends PureComponent {
                 <div className="board-detail--name">{this.state.boardName}</div>
                 <div className="board-meta-wrap">
 
-                  <div className="board-photo">
-                    <div className="loader" style={{zIndex: 1}}></div>
-                    <img style={{opacity: this.state.opacity, zIndex: 2}} src={this.state.photoURL} />
-                  </div>
+                  <div className="board-photo" style={{ backgroundImage: `url(${this.state.photoURL})`, opacity: this.state.opacity }}></div>
+                    <div className="loader" style={{zIndex: 1, opacity: this.state.loaderOpacity}}></div>
                   <div className="board-meta">
                     <div>{this.state.price} USD</div>
                     <div>{this.state.fins}-FIN</div>
