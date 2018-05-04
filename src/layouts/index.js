@@ -8,36 +8,93 @@ import Board from '../components/board'
 import BoardSample from '../components/BoardSample'
 import './index.css'
 import fire from '../fire'
+import _ from 'lodash'
+
+import cx from 'classnames'
+
+import { Fullpage, Slide, HorizontalSlider } from 'fullpage-react'
 
 class Layout extends PureComponent {
   constructor(props) {
     super(props)
 
     this.authenticateUser = this.authenticateUser.bind(this)
+    this.getUrlVars = this.getUrlVars.bind(this)
+    this.setDetails = this.setDetails.bind(this);
 
     this.state = {
       email: '',
-      authenticated: false,
+      authenticated: true,
       error: '',
-      loginButtonText: 'Enter Site'
+      loginButtonText: 'Enter Site',
+      sell: false,
+      paid: false,
+
+      boardName: '',
+      fins: 0,
+      price: 0,
+      location: '',
+      photoURL: '',
+      brand: '',
+      number: '',
+      listDate: '',
+
+      menuHidden: true,
+
+      loaderOpacity: '1',
+      photoOpacity: '0',
+      opacity: '0'
     }
+  }
+
+  getUrlVars() {
+    var vars = {}
+    var parts = window.location.href.replace(
+      /[?&]+([^=&]+)=([^&]*)/gi,
+      function(m, key, value) {
+        vars[key] = value
+      }
+    )
+    return vars
+  }
+
+  setDetails(name,fins,price,location,photo,shop,number,listdate) {
+
+    this.setState({
+      'opacity': '0',
+      menuHidden: !this.state.menuHidden,
+      boardName: name,
+      fins: fins,
+      price: price,
+      location: location,
+      photoURL: photo,
+      brand:  shop,
+      number: number,
+      listDate: listdate
+    });
+
+    setTimeout(function(){
+      this.setState({
+        'opacity': '1'
+      })
+    }.bind(this),1500)
+
   }
 
   authenticateUser() {
     // check if they are user..
 
     this.setState({
-      loginButtonText: 'LOADING...'
+      loginButtonText: 'LOADING...',
     })
 
-    let emailEncoded = this.state.email;
+    let emailEncoded = this.state.email
 
-
-    if ( emailEncoded.trim() === "" ) {
+    if (emailEncoded.trim() === '') {
       this.setState({
-        error: 'Invalid email'
+        error: 'Invalid email',
       })
-      return;
+      return
     }
 
     emailEncoded = emailEncoded.replace(/@/g, '*')
@@ -93,7 +150,7 @@ class Layout extends PureComponent {
                   console.log('ERROR', error)
                   this.setState({
                     error: errorMessage,
-                    loginButtonText: 'Enter Site'
+                    loginButtonText: 'Enter Site',
                   })
                 }.bind(this)
               )
@@ -105,8 +162,16 @@ class Layout extends PureComponent {
   componentDidMount() {
     // check if they've signed up and we've got it stored already..
 
-    const surfclub_member = localStorage.getItem('surfclub_member')
+    var paid = this.getUrlVars()['paid']
 
+    if (paid) {
+      this.setState({
+        sell: true,
+        paid: true,
+      })
+    }
+
+    const surfclub_member = localStorage.getItem('surfclub_member')
     if (surfclub_member) {
       this.setState({
         authenticated: true,
@@ -117,23 +182,50 @@ class Layout extends PureComponent {
   render() {
     const boards = this.props.data.allContentfulBoard.edges
 
-    let allBoards = boards.map(function(board) {
-      console.log(board)
+    let boardList = boards.map(
+      function(board, idx) {
+        console.log(board)
+        return (
+          <Board
+            key={board.node.id}
+            handleClick={() => this.setDetails(
 
-      return (
-        <Board
-          key={board.node.id}
-          name={board.node.boardName}
-          fins={board.node.finCount}
-          location={board.node.location}
-          photo={board.node.photo.file.url}
-          price={board.node.price}
-          shopEmail={board.node.shopEmail}
-          shopPhone={board.node.shopPhone}
-          shopName={board.node.shopName}
-        />
-      )
+              board.node.boardName,
+              board.node.finCount,
+              board.node.price,
+              board.node.surfShopName.shopLocation,
+              board.node.photo.file.url,
+              board.node.surfShopName.name,
+              board.node.surfShopName.shopPhone,
+              board.node.createdAt
+
+            ) }
+
+
+
+            id={board.node.id}
+            name={board.node.boardName}
+            photo={board.node.photo.file.url}
+            fins={board.node.finCount}
+            location={board.node.location}
+            price={board.node.price}
+            forSale={board.node.forSale}
+            dims={board.node.dimensions}
+            shopDeets={board.node.surfShopName}
+            listDate={board.node.createdAt}
+          />
+        )
+      }.bind(this)
+    )
+
+    let menuClass = cx({
+      'menu-bar': true,
+      'menu-bar--hidden': this.state.menuHidden,
     })
+
+    let formattedDate = this.state.listDate
+
+    formattedDate = new Date(formattedDate)
 
     return (
       <div>
@@ -144,112 +236,54 @@ class Layout extends PureComponent {
             { name: 'keywords', content: 'sample, something' },
           ]}
         />
-        <Header />
-        <div
-          style={{
-            margin: '0 auto',
-            maxWidth: 1600,
-            paddingTop: 0,
-          }}
-        >
-          <div className="surf-club-wrap">
-            <div className="nav">
-              <img
-                style={{ height: '50px', marginBottom: '0px' }}
-                src={require('../srflogonew_1@2x.png')}
-              />
-              <a
-                className="insta-link"
-                target="_blank"
-                href="https://www.instagram.com/surfclub_la/"
-              >
-                INSTA
-              </a>
+
+        <div className="site-wrapper">
+          <div className="brand-column">
+            <div className="brand-logo">SURF CLUB 서핑 클럽</div>
+            <div className="brand-byline">
+              A CURATED COLLECTION OF UNIQUE, ONE OF A KIND, OR SIMPLY BEAUTIFUL
+              SURFBOARDS FOR SALE IN LOS ANGELES
             </div>
 
-            <div className="surf-club-left">
-              <div className="surf-club-banner">
-                <div className="banner">
-                  A CURATED COLLECTION OF SURFBOARDS FOR SALE IN SUNNY LA
+            <a
+              className="brand-byline"
+              target="_blank"
+              href="https://christianbryant.typeform.com/to/O2TMlF"
+            >
+              LIST A BOARD
+            </a>
+
+            <div
+              onClick={() => this.setState({ menuHidden: true, photoOpacity: '0' })}
+              className={menuClass}
+            >
+              <i className="fa fa-long-arrow-left" />
+            </div>
+          </div>
+
+          <div className="content">
+            {this.state.menuHidden ? (
+              <div className="board-list">{_.reverse(boardList)}</div>
+            ) : (
+              <div className="board-details">
+                <div className="board-detail--date">{this.state.listDate}</div>
+                <div className="board-detail--name">{this.state.boardName}</div>
+                <div className="board-meta-wrap">
+
+                  <div className="board-photo">
+                    <div className="loader" style={{zIndex: 1}}></div>
+                    <img style={{opacity: this.state.opacity, zIndex: 2}} src={this.state.photoURL} />
+                  </div>
+                  <div className="board-meta">
+                    <div>{this.state.price} USD</div>
+                    <div>{this.state.fins}-FIN</div>
+                    <div>{this.state.brand}</div>
+                    <div>{this.state.location}</div>
+                    <div>{this.state.number}</div>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="surf-club-right">
-              {this.state.authenticated ? (
-                <div className="board-wrap">
-                  <div className="coming-soon">MARK YOUR CALENDAR</div>
-                  <div className="coming-soon--sub" style={{width: '280px'}}>
-                    We're busy onboarding a few more shops and will be
-                    live May 5th.
-                  </div>
-                  <div
-                    className="coming-soon--sub"
-                    style={{
-                      color: '#cccccc',
-                      marginBottom: '40px',
-                      marginTop: '20px',
-                    }}
-                  >
-                    In the meantime{' '}
-                    <a
-                      style={{ color: 'black' }}
-                      target="_blank"
-                      href="https://new.surfline.com/surf-forecasts/south-los-angeles/58581a836630e24c4487900b"
-                    >
-                      {' '}
-                      pray for waves
-                    </a>
-                  </div>
-
-                  <BoardSample />
-                  <BoardSample />
-                  <BoardSample />
-                  <BoardSample />
-                  <BoardSample />
-                  <BoardSample />
-                  <BoardSample />
-                  <BoardSample />
-                  <BoardSample />
-                  <BoardSample />
-                  <BoardSample />
-                  <BoardSample />
-                  <BoardSample />
-                  <BoardSample />
-                  <BoardSample />
-                  <BoardSample />
-                  <BoardSample />
-                  <BoardSample />
-                  <BoardSample />
-                  <BoardSample />
-                </div>
-              ) : (
-                <div className="authentication">
-                  <div className="authentication__form">
-                    <div className="auth__title">BECOME A MEMBER</div>
-                    <div className="auth__sub">
-                      DISCOVER UNIQUE, ONE OF A KIND, OR SIMPLY BEAUTIFUL
-                      SURFBOARDS FOR SALE IN LOS ANGELES
-                    </div>
-                    <div className="auth__btw">( IT’S 100% FREE, BTW. )</div>
-                    <label className="auth__label">
-                      JUST YOUR EMAIL PLEASE
-                    </label>
-                    <input
-                      onChange={e =>
-                        this.setState({
-                          email: e.target.value,
-                        })
-                      }
-                      type="text"
-                    />
-                    <button onClick={() => this.authenticateUser()}>
-                      {this.state.loginButtonText}
-                    </button>
-                    {this.state.error ? <div className="error-msg">Please enter an email </div> : ""}
-                  </div>
-                </div>
-              )}
-            </div>
+            )}
           </div>
         </div>
       </div>
@@ -273,7 +307,13 @@ export const query = graphql`
       edges {
         node {
           id
-          shopName
+          createdAt
+          surfShopName {
+            id
+            name
+            shopLocation
+            shopPhone
+          }
           boardName
           photo {
             id
@@ -283,9 +323,8 @@ export const query = graphql`
           }
           finCount
           price
-          location
-          shopPhone
-          shopEmail
+          forSale
+          dimensions
         }
       }
     }
