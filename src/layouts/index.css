@@ -241,15 +241,19 @@ body {
 
 @media (max-width: 992px) {
   .brand-column {
-    position: relative;
+    position: fixed;
     width: 100%;
     border-bottom: 1px solid #eeeeee;
-    height: 130px;
-    border-right: 0x;
+    height: 150px;
+    border-right: none;
+    background-color: #FFFFFF;
+    z-index: 2;
   }
 
   .content {
     padding-left: 0px;
+    position: relative;
+    top: 151px;
   }
 
   .board-list-item {
@@ -296,5 +300,9 @@ body {
     padding-left: 0px;
     margin-top: 22px;
     color: black;
+  }
+
+  .board-photo img {
+    transform: rotate(-90deg);
   }
 }
