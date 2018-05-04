@@ -271,6 +271,9 @@ body {
   color: #808080;
   width: 150px;
   margin-top: 10px;
+  border-radius: 0px;
+  -moz-appearance: none;
+  -webkit-appearance: none;
 }
 
 .auth-box button {

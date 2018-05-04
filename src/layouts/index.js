@@ -337,7 +337,7 @@ class Layout extends PureComponent {
                 />
                 <br />
                 <button onClick={() => this.authenticateUser()}>
-                  JOIN THE CLUB
+                  JOIN SURF CLUB
                 </button>
 
                 {this.state.error ? (
