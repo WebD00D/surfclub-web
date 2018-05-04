@@ -20,11 +20,11 @@ class Layout extends PureComponent {
 
     this.authenticateUser = this.authenticateUser.bind(this)
     this.getUrlVars = this.getUrlVars.bind(this)
-    this.setDetails = this.setDetails.bind(this);
+    this.setDetails = this.setDetails.bind(this)
 
     this.state = {
       email: '',
-      authenticated: true,
+      authenticated: false,
       error: '',
       loginButtonText: 'Enter Site',
       sell: false,
@@ -59,31 +59,31 @@ class Layout extends PureComponent {
     return vars
   }
 
-  setDetails(name,fins,price,location,photo,shop,number,listdate) {
-
-    window.scrollTo(0,0);
+  setDetails(name, fins, price, location, photo, shop, number, listdate) {
+    window.scrollTo(0, 0)
 
     this.setState({
-      'opacity': '0',
+      opacity: '0',
       menuHidden: !this.state.menuHidden,
       boardName: name,
       fins: fins,
       price: price,
       location: location,
       photoURL: photo,
-      brand:  shop,
+      brand: shop,
       number: number,
-      listDate: listdate
-    });
+      listDate: listdate,
+    })
 
-    setTimeout(function(){
-      this.setState({
-        opacity: '1',
-        loaderOpacity: '0'
-
-      })
-    }.bind(this),1000)
-
+    setTimeout(
+      function() {
+        this.setState({
+          opacity: '1',
+          loaderOpacity: '0',
+        })
+      }.bind(this),
+      1000
+    )
   }
 
   authenticateUser() {
@@ -193,21 +193,18 @@ class Layout extends PureComponent {
         return (
           <Board
             key={board.node.id}
-            handleClick={() => this.setDetails(
-
-              board.node.boardName,
-              board.node.finCount,
-              board.node.price,
-              board.node.surfShopName.shopLocation,
-              board.node.photo.file.url,
-              board.node.surfShopName.name,
-              board.node.surfShopName.shopPhone,
-              board.node.createdAt
-
-            ) }
-
-
-
+            handleClick={() =>
+              this.setDetails(
+                board.node.boardName,
+                board.node.finCount,
+                board.node.price,
+                board.node.surfShopName.shopLocation,
+                board.node.photo.file.url,
+                board.node.surfShopName.name,
+                board.node.surfShopName.shopPhone,
+                board.node.createdAt
+              )
+            }
             id={board.node.id}
             name={board.node.boardName}
             photo={board.node.photo.file.url}
@@ -242,11 +239,20 @@ class Layout extends PureComponent {
           ]}
         />
 
-
         <div className="site-wrapper">
-
-        <a href="http://deuscustoms.com/wetsuits/" onclick="trackOutboundLink('http://deuscustoms.com/wetsuits/'); return false;">
-          <div className="fixed" style={{backgroundColor: "#FFFFFF", zIndex: '2'}}><img className="mobile-top-ad" src={require('../ads/DuesAd.jpg')} /></div>
+          <a
+            href="http://deuscustoms.com/wetsuits/"
+            onclick="trackOutboundLink('http://deuscustoms.com/wetsuits/'); return false;"
+          >
+            <div
+              className="fixed"
+              style={{ backgroundColor: '#FFFFFF', zIndex: '2' }}
+            >
+              <img
+                className="mobile-top-ad"
+                src={require('../ads/DuesAd.jpg')}
+              />
+            </div>
           </a>
 
           <div className="brand-column">
@@ -265,39 +271,88 @@ class Layout extends PureComponent {
             </a>
 
             <div
-              onClick={() => this.setState({ menuHidden: true, photoOpacity: '0', loaderOpacity: '1' })}
+              onClick={() =>
+                this.setState({
+                  menuHidden: true,
+                  photoOpacity: '0',
+                  loaderOpacity: '1',
+                })
+              }
               className={menuClass}
             >
               <i className="fa fa-long-arrow-left" />
             </div>
           </div>
 
-          <div className="content">
-            {this.state.menuHidden ? (
-              <div className="board-list">{boardList}</div>
-            ) : (
-              <div className="board-details">
-                <div className="board-detail--date">{this.state.listDate}</div>
-                <div className="board-detail--name">{this.state.boardName}</div>
-                <div className="board-meta-wrap">
-
-                  <div className="board-photo" style={{ backgroundImage: `url(${this.state.photoURL})`, opacity: this.state.opacity }}></div>
-                    <div className="loader" style={{zIndex: 1, opacity: this.state.loaderOpacity}}></div>
-                  <div className="board-meta">
-                    <div>{this.state.price} USD</div>
-                    <div>{this.state.fins}-FIN</div>
-                    <div>{this.state.brand}</div>
-                    <div>{this.state.location}</div>
-                    <div>{this.state.number}</div>
+          {this.state.authenticated ? (
+            <div className="content">
+              {this.state.menuHidden ? (
+                <div className="board-list">{boardList}</div>
+              ) : (
+                <div className="board-details">
+                  <div className="board-detail--date">
+                    {this.state.listDate}
+                  </div>
+                  <div className="board-detail--name">
+                    {this.state.boardName}
+                  </div>
+                  <div className="board-meta-wrap">
+                    <div
+                      className="board-photo"
+                      style={{
+                        backgroundImage: `url(${this.state.photoURL})`,
+                        opacity: this.state.opacity,
+                      }}
+                    />
+                    <div
+                      className="loader"
+                      style={{ zIndex: 1, opacity: this.state.loaderOpacity }}
+                    />
+                    <div className="board-meta">
+                      <div>{this.state.price} USD</div>
+                      <div>{this.state.fins}-FIN</div>
+                      <div>{this.state.brand}</div>
+                      <div>{this.state.location}</div>
+                      <div>{this.state.number}</div>
+                    </div>
                   </div>
                 </div>
+              )}
+            </div>
+          ) : (
+            <div className="content content-auth">
+              <div className="auth-box">
+                <div className="brand-byline" style={{ padding: '0px' }}>
+                  <b>BROWSE, SHOP, AND SELL KICKASS SURFBOARDS.</b>
+                </div>
+                <div
+                  className="brand-byline"
+                  style={{ padding: '0px', marginTop: '0px' }}
+                >
+                  JUST YOUR EMAIL PLEASE.
+                </div>
+                <input
+                  type="text"
+                  onChange={e => this.setState({ email: e.target.value })}
+                />
+                <br />
+                <button onClick={() => this.authenticateUser()}>
+                  JOIN THE CLUB
+                </button>
+
+                {this.state.error ? (
+                  <div
+                    className="brand-byline"
+                    style={{ padding: '0px', marginTop: '12px', color: 'red' }}
+                  >
+                    INVALID EMAIL
+                  </div>
+                ) : (
+                  ''
+                )}
               </div>
-            )}
-
-
-
-
-          </div>
+            </div>
+          )}
         </div>
       </div>
     )
