@@ -116,6 +116,10 @@ body {
   padding-right: 60px;
 }
 
+.fixed {
+  position: fixed;
+}
+
 .love-count {
   font-size: 10px;
   padding-left: 4px;

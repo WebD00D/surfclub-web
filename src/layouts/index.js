@@ -245,7 +245,9 @@ class Layout extends PureComponent {
 
         <div className="site-wrapper">
 
-        <a href="#" onclick="trackOutboundLink('http://www.example.com'); return false;"><img className="mobile-top-ad" src={require('../ads/DuesAd.jpg')} /></a>
+        <a href="#" onclick="trackOutboundLink('http://www.example.com'); return false;">
+          <div className="fixed" style={{backgroundColor: "#FFFFFF", zIndex: '2'}}><img className="mobile-top-ad" src={require('../ads/DuesAd.jpg')} /></div>
+          </a>
 
           <div className="brand-column">
             <div className="brand-logo">SURF CLUB 서핑 클럽</div>
