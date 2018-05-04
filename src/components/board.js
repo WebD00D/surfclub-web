@@ -27,7 +27,6 @@ class Board extends React.Component {
       .once('value')
       .then(
         function(snapshot) {
-          console.log('BOARD LOVE', snapshot.val())
           if (snapshot.val()) {
             this.setState({
               love: snapshot.val().love,

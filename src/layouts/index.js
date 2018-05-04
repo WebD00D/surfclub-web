@@ -14,6 +14,16 @@ import cx from 'classnames'
 
 import { Fullpage, Slide, HorizontalSlider } from 'fullpage-react'
 
+import ReactGA from 'react-ga'
+ReactGA.initialize('UA-118033416-1')
+
+ReactGA.initialize('UA-118033416-1', {
+  debug: true,
+  titleCase: false,
+})
+
+ReactGA.pageview(window.location.pathname + window.location.search)
+
 class Layout extends PureComponent {
   constructor(props) {
     super(props)
@@ -60,6 +70,12 @@ class Layout extends PureComponent {
   }
 
   setDetails(name, fins, price, location, photo, shop, number, listdate) {
+
+    ReactGA.event({
+      category: 'BOARD CLICK',
+      action: `User clicked on ${name}`,
+    })
+
     window.scrollTo(0, 0)
 
     this.setState({
@@ -107,6 +123,11 @@ class Layout extends PureComponent {
 
     // christian@stabmag.com >>  christian*stabmag^com
 
+    ReactGA.event({
+      category: 'Account Created',
+      action: `A user has registered for an account`,
+    })
+
     fire
       .database()
       .ref('users/' + emailEncoded)
@@ -152,7 +173,6 @@ class Layout extends PureComponent {
                   // handle errors.
                   const errorCode = error.code
                   const errorMessage = error.message
-                  console.log('ERROR', error)
                   this.setState({
                     error: errorMessage,
                     loginButtonText: 'Enter Site',
@@ -181,6 +201,13 @@ class Layout extends PureComponent {
       this.setState({
         authenticated: true,
       })
+
+      ReactGA.event({
+        category: 'Returning Member',
+        action: `An already registered user came back`,
+      })
+
+
     }
   }
 
@@ -189,7 +216,6 @@ class Layout extends PureComponent {
 
     let boardList = boards.map(
       function(board, idx) {
-        console.log(board)
         return (
           <Board
             key={board.node.id}
@@ -240,9 +266,10 @@ class Layout extends PureComponent {
         />
 
         <div className="site-wrapper">
-          <a
-            href="http://deuscustoms.com/wetsuits/"
-            onclick="trackOutboundLink('http://deuscustoms.com/wetsuits/'); return false;"
+          <ReactGA.OutboundLink
+            eventLabel="Banner Ad"
+            to="http://deuscustoms.com/wetsuits/"
+            target="_blank"
           >
             <div
               className="fixed"
@@ -253,7 +280,7 @@ class Layout extends PureComponent {
                 src={require('../ads/DuesAd.jpg')}
               />
             </div>
-          </a>
+          </ReactGA.OutboundLink>
 
           <div className="brand-column">
             <div className="brand-logo">SURF CLUB 서핑 클럽</div>
@@ -262,13 +289,15 @@ class Layout extends PureComponent {
               SURFBOARDS FOR SALE IN LOS ANGELES
             </div>
 
-            <a
-              className="brand-byline"
+            <ReactGA.OutboundLink
+              eventLabel="List a Board Clicked"
+              to="https://christianbryant.typeform.com/to/O2TMlF"
               target="_blank"
-              href="https://christianbryant.typeform.com/to/O2TMlF"
+              className="brand-byline"
             >
-              LIST A BOARD
-            </a>
+
+            LIST A BOARD
+            </ReactGA.OutboundLink>
 
             <div
               onClick={() =>
