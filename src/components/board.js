@@ -20,7 +20,7 @@ class Board extends React.Component {
 
   componentDidMount() {
 
-  
+
     fire
       .database()
       .ref('boards/' + this.props.id)
@@ -46,7 +46,7 @@ class Board extends React.Component {
           opacity: '1',
         })
       }.bind(this),
-      3000
+      2000
     )
   }
 
