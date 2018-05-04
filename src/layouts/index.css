@@ -310,4 +310,8 @@ body {
   .board-photo img {
     transform: rotate(-90deg);
   }
+
+  .board-photo {
+    border: none;
+  }
 }
