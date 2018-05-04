@@ -274,6 +274,7 @@ body {
   border-radius: 0px;
   -moz-appearance: none;
   -webkit-appearance: none;
+  border: 1px solid black;
 }
 
 .auth-box button {
