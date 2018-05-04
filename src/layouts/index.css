@@ -302,6 +302,11 @@ body {
     color: black;
   }
 
+
+}
+
+
+@media (max-width: 600px) {
   .board-photo img {
     transform: rotate(-90deg);
   }
