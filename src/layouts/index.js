@@ -76,6 +76,11 @@ class Layout extends PureComponent {
       action: `User viewed a board`,
     })
 
+    ReactGA.event({
+      category: `SHOP CLICK FOR ${shop}`,
+      action: `Shop View `,
+    })
+
     window.scrollTo(0, 0)
 
     this.setState({
