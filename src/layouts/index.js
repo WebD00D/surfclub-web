@@ -82,7 +82,7 @@ class Layout extends PureComponent {
         loaderOpacity: '0'
 
       })
-    }.bind(this),3000)
+    }.bind(this),1000)
 
   }
 
