@@ -60,6 +60,8 @@ class Layout extends PureComponent {
 
   setDetails(name,fins,price,location,photo,shop,number,listdate) {
 
+    window.scrollTo(0,0);
+
     this.setState({
       'opacity': '0',
       menuHidden: !this.state.menuHidden,
