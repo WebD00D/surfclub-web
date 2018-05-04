@@ -268,7 +268,7 @@ class Layout extends PureComponent {
 
           <div className="content">
             {this.state.menuHidden ? (
-              <div className="board-list">{_.reverse(boardList)}</div>
+              <div className="board-list">{boardList}</div>
             ) : (
               <div className="board-details">
                 <div className="board-detail--date">{this.state.listDate}</div>
