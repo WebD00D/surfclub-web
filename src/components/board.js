@@ -46,7 +46,7 @@ class Board extends React.Component {
           opacity: '1',
         })
       }.bind(this),
-      2000
+      1000
     )
   }
 
