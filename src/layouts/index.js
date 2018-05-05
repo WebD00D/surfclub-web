@@ -15,14 +15,6 @@ import cx from 'classnames'
 import { Fullpage, Slide, HorizontalSlider } from 'fullpage-react'
 
 import ReactGA from 'react-ga'
-ReactGA.initialize('UA-118033416-1')
-
-ReactGA.initialize('UA-118033416-1', {
-  debug: true,
-  titleCase: false,
-})
-
-ReactGA.pageview(window.location.pathname + window.location.search)
 
 class Layout extends PureComponent {
   constructor(props) {
@@ -63,6 +55,17 @@ class Layout extends PureComponent {
       previewOpacity: '0',
     }
   }
+
+componentDidMount(){
+  ReactGA.initialize('UA-118033416-1')
+
+  ReactGA.initialize('UA-118033416-1', {
+    debug: true,
+    titleCase: false,
+  })
+
+  ReactGA.pageview(window.location.pathname + window.location.search)
+}
 
   getUrlVars() {
     var vars = {}
