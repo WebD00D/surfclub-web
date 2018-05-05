@@ -70,7 +70,10 @@ class Board extends React.Component {
 
     return (
 
-      <div onClick={()=> this.props.handleClick()}  className="board-list-item">
+      <div
+        onMouseOver={ () => this.props.handleMouseOver() }
+        onMouseOut={ () => this.props.handleMouseOut() }
+        onClick={()=> this.props.handleClick()}  className="board-list-item">
         { this.props.forSale ? <div className="board-list-price">{this.props.price}</div> : <div className="board-list-sold">SOLD</div>  }
         <div className="board-list-name">
           <div>{this.props.name}</div>

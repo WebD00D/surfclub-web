@@ -32,6 +32,9 @@ class Layout extends PureComponent {
     this.getUrlVars = this.getUrlVars.bind(this)
     this.setDetails = this.setDetails.bind(this)
 
+    this.setPreview = this.setPreview.bind(this);
+
+
     this.state = {
       email: '',
       authenticated: false,
@@ -55,6 +58,9 @@ class Layout extends PureComponent {
       photoOpacity: '0',
       opacity: '0',
       loaderOpacity: '1',
+
+      previewPhoto: '',
+      previewOpacity: '0',
     }
   }
 
@@ -216,6 +222,19 @@ class Layout extends PureComponent {
     }
   }
 
+  setPreview(photo){
+
+
+    this.setState({ previewPhoto: photo, previewOpacity: "1" })
+
+    setTimeout(function(){
+      this.setState({
+        previewOpacity: "0"
+      })
+    }.bind(this),100)
+
+  }
+
   render() {
     const boards = this.props.data.allContentfulBoard.edges
 
@@ -224,6 +243,8 @@ class Layout extends PureComponent {
         return (
           <Board
             key={board.node.id}
+            handleMouseOver={ () => this.setPreview( board.node.photo.file.url) }
+            handleMouseOut={ () => this.setState({ previewPhoto: '' }) }
             handleClick={() =>
               this.setDetails(
                 board.node.boardName,
@@ -292,17 +313,25 @@ class Layout extends PureComponent {
             <div className="brand-byline">
               A CURATED COLLECTION OF UNIQUE, ONE OF A KIND, OR SIMPLY BEAUTIFUL
               SURFBOARDS FOR SALE IN LOS ANGELES
+
+
             </div>
 
-            <ReactGA.OutboundLink
-              eventLabel="List a Board Clicked"
-              to="https://christianbryant.typeform.com/to/O2TMlF"
-              target="_blank"
-              className="brand-byline"
-            >
 
-            LIST A BOARD
-            </ReactGA.OutboundLink>
+            {this.state.authenticated ?
+
+              <ReactGA.OutboundLink
+                eventLabel="List a Board Clicked"
+                to="https://christianbryant.typeform.com/to/O2TMlF"
+                target="_blank"
+                className="brand-byline"
+                style={{color: 'blue'}}
+              >
+
+              LIST A BOARD
+              </ReactGA.OutboundLink>
+              : ""}
+
 
             <div
               onClick={() =>
@@ -321,7 +350,20 @@ class Layout extends PureComponent {
           {this.state.authenticated ? (
             <div className="content">
               {this.state.menuHidden ? (
-                <div className="board-list">{boardList}</div>
+                <div className="board-list">
+                  {boardList}
+
+                  { this.state.previewPhoto ?
+                    <div style={{backgroundImage: `url(${this.state.previewPhoto})`}} className="board-preview">
+                      <div className="board-preview-mask" style={{opacity: this.state.previewOpacity}}>
+                      <div className="board-detail--date spin-me" style={{color: "black", fontSize: "10px",textAlign: "center"}}>
+
+                      </div>
+                      </div>
+                    </div>
+                     : "" }
+
+                </div>
               ) : (
                 <div className="board-details">
                   <div className="board-detail--date">
