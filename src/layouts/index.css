@@ -84,46 +84,56 @@ body {
   position: absolute;
   height: 100%;
   width: 100%;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   display: flex;
   justify-content: center;
   align-items: center;
-  transition:  .4s ease;
+  transition: 0.4s ease;
 }
 
 .spin-me {
-
   -webkit-animation-name: spin;
- -webkit-animation-duration: 1000ms;
- -webkit-animation-iteration-count: infinite;
- -webkit-animation-timing-function: linear;
- -moz-animation-name: spin;
- -moz-animation-duration: 1000ms;
- -moz-animation-iteration-count: infinite;
- -moz-animation-timing-function: linear;
- -ms-animation-name: spin;
- -ms-animation-duration: 1000ms;
- -ms-animation-iteration-count: infinite;
- -ms-animation-timing-function: linear;
+  -webkit-animation-duration: 1000ms;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+  -moz-animation-name: spin;
+  -moz-animation-duration: 1000ms;
+  -moz-animation-iteration-count: infinite;
+  -moz-animation-timing-function: linear;
+  -ms-animation-name: spin;
+  -ms-animation-duration: 1000ms;
+  -ms-animation-iteration-count: infinite;
+  -ms-animation-timing-function: linear;
 
- animation-name: spin;
- animation-duration: 1000ms;
- animation-iteration-count: infinite;
- animation-timing-function: linear;
+  animation-name: spin;
+  animation-duration: 1000ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
 }
-
 
 @-moz-keyframes spin {
-    from { -moz-transform: rotate(0deg); }
-    to { -moz-transform: rotate(360deg); }
+  from {
+    -moz-transform: rotate(0deg);
+  }
+  to {
+    -moz-transform: rotate(360deg);
+  }
 }
 @-webkit-keyframes spin {
-    from { -webkit-transform: rotate(0deg); }
-    to { -webkit-transform: rotate(360deg); }
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+  }
 }
 @keyframes spin {
-    from {transform:rotate(0deg);}
-    to {transform:rotate(360deg);}
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .board-list-item {
@@ -144,14 +154,10 @@ body {
   cursor: pointer;
 }
 
-
-
-
 .flex-wrap {
   display: flex;
   align-items: center;
 }
-
 
 .board-list-price {
   width: 100px;
@@ -164,7 +170,6 @@ body {
 }
 
 .board-list-type-price {
-
   color: #999;
   font-family: 'roboto-mono', monospace;
   font-weight: 300;
@@ -260,9 +265,8 @@ body {
   width: 50px;
   font-size: 8px;
   width: 50px;
-   padding-right: 30px;
-   justify-content: space-between;
-
+  padding-right: 30px;
+  justify-content: space-between;
 }
 
 .board-photo {
@@ -369,7 +373,6 @@ body {
 }
 
 @media (max-width: 992px) {
-
   .auth-box {
     padding: 0px;
     padding-left: 30px;
@@ -377,7 +380,6 @@ body {
     margin-left: auto;
     margin-right: auto;
   }
-
 
   .content-auth {
     height: auto;
@@ -437,10 +439,16 @@ body {
     height: 320px;
     width: 100%;
     max-width: 320px;
-    border: 1px solid black;
-    background-size: cover;
+    background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
+    align-items: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: 0;
+    transition: 0.2s ease;
   }
 
   .board-meta-wrap {
@@ -458,18 +466,15 @@ body {
     width: 40px;
   }
 
-
   .board-preview {
     display: none;
   }
 }
 
 @media (max-width: 600px) {
-
   .board-preview {
     height: 75px;
     width: 75px;
-
   }
 
   .loader {
@@ -509,6 +514,4 @@ body {
   .mobile-top-ad {
     position: fixed;
   }
-
-
 }
