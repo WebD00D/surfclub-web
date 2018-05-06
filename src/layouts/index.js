@@ -310,19 +310,33 @@ class Layout extends PureComponent {
               SURFBOARDS AND SURF INSPIRED PRODUCTS
             </div>
 
+            <div className="flex-wrap">
+
             {this.state.authenticated ? (
               <ReactGA.OutboundLink
                 eventLabel="List a Board Clicked"
                 to="https://surfclub.typeform.com/to/O2TMlF"
                 target="_blank"
                 className="brand-byline"
-                style={{ color: 'blue' }}
+                style={{ color: 'blue', paddingRight: "0px" }}
               >
                 LIST A BOARD
               </ReactGA.OutboundLink>
             ) : (
               ''
             )}
+
+            <ReactGA.OutboundLink
+              eventLabel="Went to our INSTA"
+              to="https://www.instagram.com/joinsurfclub/"
+              target="_blank"
+              className="brand-byline"
+              style={{ color: 'blue' }}
+            >
+              INSTA
+            </ReactGA.OutboundLink>
+
+            </div>
 
             <div
               onClick={() =>
