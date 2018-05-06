@@ -306,7 +306,7 @@ class Layout extends PureComponent {
           <div className="brand-column">
             <div className="brand-logo">SURF CLUB 서프 클럽</div>
             <div className="brand-byline">
-              A CURATED COLLECTION OF UNIQUE, ONE OF A KIND, OR SIMPLY BEAUTIFUL
+              A CURATED COLLECTION OF SIMPLY BEAUTIFUL
               SURFBOARDS AND SURF INSPIRED PRODUCTS
             </div>
 
