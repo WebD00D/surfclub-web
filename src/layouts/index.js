@@ -24,8 +24,7 @@ class Layout extends PureComponent {
     this.getUrlVars = this.getUrlVars.bind(this)
     this.setDetails = this.setDetails.bind(this)
 
-    this.setPreview = this.setPreview.bind(this);
-
+    this.setPreview = this.setPreview.bind(this)
 
     this.state = {
       email: '',
@@ -35,14 +34,15 @@ class Layout extends PureComponent {
       sell: false,
       paid: false,
 
-      boardName: '',
-      fins: 0,
-      price: 0,
-      location: '',
-      photoURL: '',
-      brand: '',
-      number: '',
-      listDate: '',
+      headline: '',
+      brand: 'brand',
+      photo: 'photo',
+      name: 'name',
+      productLink: 'productLink',
+      description: 'description',
+      price: 'price',
+      listDate: 'listdate',
+      productType: '',
 
       menuHidden: true,
 
@@ -56,16 +56,16 @@ class Layout extends PureComponent {
     }
   }
 
-componentDidMount(){
-  ReactGA.initialize('UA-118033416-1')
+  componentDidMount() {
+    ReactGA.initialize('UA-118033416-1')
 
-  ReactGA.initialize('UA-118033416-1', {
-    debug: true,
-    titleCase: false,
-  })
+    ReactGA.initialize('UA-118033416-1', {
+      debug: true,
+      titleCase: false,
+    })
 
-  ReactGA.pageview(window.location.pathname + window.location.search)
-}
+    ReactGA.pageview(window.location.pathname + window.location.search)
+  }
 
   getUrlVars() {
     var vars = {}
@@ -78,16 +78,20 @@ componentDidMount(){
     return vars
   }
 
-  setDetails(name, fins, price, location, photo, shop, number, listdate) {
-
+  setDetails(
+    headline,
+    brand,
+    photo,
+    name,
+    productLink,
+    description,
+    price,
+    listdate,
+    productType
+  ) {
     ReactGA.event({
-      category: 'BOARD CLICK',
+      category: 'PRODUCT CLICK',
       action: `User viewed a board`,
-    })
-
-    ReactGA.event({
-      category: `SHOP CLICK FOR ${shop}`,
-      action: `Shop View `,
     })
 
     window.scrollTo(0, 0)
@@ -95,14 +99,15 @@ componentDidMount(){
     this.setState({
       opacity: '0',
       menuHidden: !this.state.menuHidden,
-      boardName: name,
-      fins: fins,
+      headline: headline,
+      brand: brand,
+      photo: photo,
+      name: name,
+      productLink: productLink,
+      description: description,
       price: price,
-      location: location,
-      photoURL: photo,
-      brand: shop,
-      number: number,
       listDate: listdate,
+      productType: productType,
     })
 
     setTimeout(
@@ -220,55 +225,56 @@ componentDidMount(){
         category: 'Returning Member',
         action: `An already registered user came back`,
       })
-
-
     }
   }
 
-  setPreview(photo){
+  setPreview(photo) {
+    this.setState({ previewPhoto: photo, previewOpacity: '1' })
 
-
-    this.setState({ previewPhoto: photo, previewOpacity: "1" })
-
-    setTimeout(function(){
-      this.setState({
-        previewOpacity: "0"
-      })
-    }.bind(this),100)
-
+    setTimeout(
+      function() {
+        this.setState({
+          previewOpacity: '0',
+        })
+      }.bind(this),
+      100
+    )
   }
 
   render() {
-    const boards = this.props.data.allContentfulBoard.edges
+    const boards = this.props.data.allContentfulProductPost.edges
 
     let boardList = boards.map(
       function(board, idx) {
         return (
           <Board
             key={board.node.id}
-            handleMouseOver={ () => this.setPreview( board.node.photo.file.url) }
-            handleMouseOut={ () => this.setState({ previewPhoto: '' }) }
+            handleMouseOver={() =>
+              this.setPreview(board.node.productImage.file.url)
+            }
+            handleMouseOut={() => this.setState({ previewPhoto: '' })}
             handleClick={() =>
               this.setDetails(
-                board.node.boardName,
-                board.node.finCount,
+                board.node.headline,
+                board.node.brand,
+                board.node.productImage.file.url,
+                board.node.productName,
+                board.node.purchaseLink,
+                board.node.description,
                 board.node.price,
-                board.node.surfShopName.shopLocation,
-                board.node.photo.file.url,
-                board.node.surfShopName.name,
-                board.node.surfShopName.shopPhone,
-                board.node.createdAt
+                board.node.createdAt,
+                board.node.productType.type
               )
             }
             id={board.node.id}
-            name={board.node.boardName}
-            photo={board.node.photo.file.url}
-            fins={board.node.finCount}
-            location={board.node.location}
+            headline={board.node.headline}
+            brand={board.node.headline}
+            photo={board.node.productImage.file.url}
+            productName={board.node.productName}
+            purchaseLink={board.node.purchaseLink}
+            description={board.node.description}
             price={board.node.price}
-            forSale={board.node.forSale}
-            dims={board.node.dimensions}
-            shopDeets={board.node.surfShopName}
+            productType={board.node.productType.type}
             listDate={board.node.createdAt}
           />
         )
@@ -295,46 +301,28 @@ componentDidMount(){
         />
 
         <div className="site-wrapper">
-          <ReactGA.OutboundLink
-            eventLabel="Banner Ad"
-            to="http://deuscustoms.com/wetsuits/"
-            target="_blank"
-          >
-            <div
-              className="fixed"
-              style={{ backgroundColor: '#FFFFFF', zIndex: '2' }}
-            >
-              <img
-                className="mobile-top-ad"
-                src={require('../ads/DuesAd.jpg')}
-              />
-            </div>
-          </ReactGA.OutboundLink>
+
 
           <div className="brand-column">
-            <div className="brand-logo">SURF CLUB 서핑 클럽</div>
+            <div className="brand-logo">SURF CLUB 서프 클럽</div>
             <div className="brand-byline">
               A CURATED COLLECTION OF UNIQUE, ONE OF A KIND, OR SIMPLY BEAUTIFUL
-              SURFBOARDS FOR SALE IN LOS ANGELES
-
-
+              SURFBOARDS AND SURF INSPIRED PRODUCTS
             </div>
 
-
-            {this.state.authenticated ?
-
+            {this.state.authenticated ? (
               <ReactGA.OutboundLink
                 eventLabel="List a Board Clicked"
-                to="https://christianbryant.typeform.com/to/O2TMlF"
+                to="https://surfclub.typeform.com/to/O2TMlF"
                 target="_blank"
                 className="brand-byline"
-                style={{color: 'blue'}}
+                style={{ color: 'blue' }}
               >
-
-              LIST A BOARD
+                LIST A BOARD
               </ReactGA.OutboundLink>
-              : ""}
-
+            ) : (
+              ''
+            )}
 
             <div
               onClick={() =>
@@ -356,16 +344,30 @@ componentDidMount(){
                 <div className="board-list">
                   {boardList}
 
-                  { this.state.previewPhoto ?
-                    <div style={{backgroundImage: `url(${this.state.previewPhoto})`}} className="board-preview">
-                      <div className="board-preview-mask" style={{opacity: this.state.previewOpacity}}>
-                      <div className="board-detail--date spin-me" style={{color: "black", fontSize: "10px",textAlign: "center"}}>
-
-                      </div>
+                  {this.state.previewPhoto ? (
+                    <div
+                      style={{
+                        backgroundImage: `url(${this.state.previewPhoto})`,
+                      }}
+                      className="board-preview"
+                    >
+                      <div
+                        className="board-preview-mask"
+                        style={{ opacity: this.state.previewOpacity }}
+                      >
+                        <div
+                          className="board-detail--date spin-me"
+                          style={{
+                            color: 'black',
+                            fontSize: '10px',
+                            textAlign: 'center',
+                          }}
+                        />
                       </div>
                     </div>
-                     : "" }
-
+                  ) : (
+                    ''
+                  )}
                 </div>
               ) : (
                 <div className="board-details">
@@ -373,13 +375,16 @@ componentDidMount(){
                     {this.state.listDate}
                   </div>
                   <div className="board-detail--name">
-                    {this.state.boardName}
+                    {this.state.headline}
                   </div>
+                  <div className="board-meta" style={{marginBottom: '14px', marginTop: "0px" , maxWidth: "320px", paddingLeft: "0px"}}>
+                    <div>{this.state.description} </div>
+                    </div>
                   <div className="board-meta-wrap">
                     <div
                       className="board-photo"
                       style={{
-                        backgroundImage: `url(${this.state.photoURL})`,
+                        backgroundImage: `url(${this.state.photo})`,
                         opacity: this.state.opacity,
                       }}
                     />
@@ -388,11 +393,19 @@ componentDidMount(){
                       style={{ zIndex: 1, opacity: this.state.loaderOpacity }}
                     />
                     <div className="board-meta">
-                      <div>{this.state.price} USD</div>
-                      <div>{this.state.fins}-FIN</div>
+                      <div>{this.state.price} </div>
                       <div>{this.state.brand}</div>
-                      <div>{this.state.location}</div>
-                      <div>{this.state.number}</div>
+                      <div>{this.state.name}</div>
+                      <div>
+                        <ReactGA.OutboundLink
+                          eventLabel="Product Purchase Link Clicked"
+                          to={this.state.productLink}
+                          target="_blank"
+                          style={{ color: 'blue' }}
+                        >
+                          BUY IT
+                        </ReactGA.OutboundLink>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -402,7 +415,7 @@ componentDidMount(){
             <div className="content content-auth">
               <div className="auth-box">
                 <div className="brand-byline" style={{ padding: '0px' }}>
-                  <b>BROWSE, SHOP, AND SELL KICKASS SURFBOARDS.</b>
+                  <b>BROWSE, SHOP, AND SELL KICKASS <br /> SURFBOARDS AND SURF-INSPIRED PRODUCTS.</b>
                 </div>
                 <div
                   className="brand-byline"
@@ -450,28 +463,26 @@ export default connect(mapStateToProps)(Layout)
 
 export const query = graphql`
   query BoardQuery {
-    allContentfulBoard {
+    allContentfulProductPost {
       edges {
         node {
           id
+          headline
+          brand
+          price
+          productName
+          purchaseLink
+          description
           createdAt
-          surfShopName {
-            id
-            name
-            shopLocation
-            shopPhone
+          productType {
+            type
           }
-          boardName
-          photo {
+          productImage {
             id
             file {
               url
             }
           }
-          finCount
-          price
-          forSale
-          dimensions
         }
       }
     }

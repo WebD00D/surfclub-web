@@ -68,15 +68,14 @@ body {
 }
 
 .board-preview {
-  height: 150px;
-  width: 150px;
-  border: 1px solid black;
+  height: 200px;
+  width: 200px;
   position: fixed;
   z-index: 10;
   background: white;
   bottom: 30px;
-  right: 30px;
-  background-size: cover;
+  left: 30px;
+  background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
 }
@@ -153,6 +152,7 @@ body {
   align-items: center;
 }
 
+
 .board-list-price {
   width: 100px;
   color: #999;
@@ -160,6 +160,18 @@ body {
   font-weight: 300;
   letter-spacing: 1px;
   font-size: 10px;
+  text-transform: uppercase;
+}
+
+.board-list-type-price {
+
+  color: #999;
+  font-family: 'roboto-mono', monospace;
+  font-weight: 300;
+  letter-spacing: 1px;
+  font-size: 10px;
+  text-transform: uppercase;
+  width: 50px;
 }
 
 .board-list-sold {
@@ -219,7 +231,7 @@ body {
   letter-spacing: 10px;
   font-size: 32px;
   margin-top: 80px;
-  margin-bottom: 32px;
+  margin-bottom: 12px;
   text-transform: uppercase;
 }
 
@@ -245,20 +257,24 @@ body {
 }
 
 .heart-wrap {
-  width: 75px;
+  width: 50px;
   font-size: 8px;
+  width: 50px;
+   padding-right: 30px;
+   justify-content: space-between;
+
 }
 
 .board-photo {
   height: 500px;
   width: 500px;
-  border: 1px solid black;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  background-size: cover;
+  background-size: contain;
   background-repeat: no-repeat;
-  background-position: center;
+  background-position: left;
   transition: 0.2s ease;
 }
 
@@ -392,11 +408,11 @@ body {
   }
 
   .board-list-name {
-    padding-right: 0px;
+    padding-right: 30px;
   }
 
   .board-list-price {
-    width: 50px;
+    width: 80px;
   }
 
   .board-list-sold {
@@ -437,6 +453,15 @@ body {
     margin-top: 22px;
     color: black;
   }
+
+  .board-list-type-price {
+    width: 40px;
+  }
+
+
+  .board-preview {
+    display: none;
+  }
 }
 
 @media (max-width: 600px) {
@@ -459,6 +484,14 @@ body {
   .board-photo {
     border: none;
   }
+
+  .board-list-name {
+    font-size: 11px;
+  }
+
+  .board-list-type-price {
+    margin-left: 11px;
+  }
 }
 
 .mobile-top-ad {
@@ -476,10 +509,6 @@ body {
   .mobile-top-ad {
     position: fixed;
   }
-  .brand-column {
-    top: 55px;
-  }
-  .content {
-    top: 206px;
-  }
+
+
 }
