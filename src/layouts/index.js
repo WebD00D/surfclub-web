@@ -459,6 +459,13 @@ class Layout extends PureComponent {
               </div>
             </div>
           )}
+
+
+          <div className="filter-bar">
+            HAVE A PRODUCT TO FEATURE? SLIDE IN OUR DMS.
+          </div>
+
+
         </div>
       </div>
     )
