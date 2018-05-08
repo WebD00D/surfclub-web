@@ -28,7 +28,7 @@ class Layout extends PureComponent {
 
     this.state = {
       email: '',
-      authenticated: false,
+      authenticated: true,
       error: '',
       loginButtonText: 'Enter Site',
       sell: false,
@@ -462,7 +462,7 @@ class Layout extends PureComponent {
 
 
           <div className="filter-bar">
-            HAVE A PRODUCT TO FEATURE? SLIDE IN OUR DMS.
+            HAVE A PRODUCT TO FEATURE? SLIDE INTO OUR DMS.
           </div>
 
 
