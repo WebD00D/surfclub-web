@@ -409,9 +409,8 @@ class Layout extends PureComponent {
                         src={this.state.spotify}
                         width="300"
                         height="380"
-                        frameborder="0"
-                        allowtransparency="true"
-                        allow="encrypted-media"
+                        frameBorder="0"
+                        allowTransparency="true"
                       />
                     ) : (
                       <div
