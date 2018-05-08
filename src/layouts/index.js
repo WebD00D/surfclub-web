@@ -300,8 +300,8 @@ class Layout extends PureComponent {
         <Helmet
           title="Surf Club"
           meta={[
-            { name: 'description', content: 'Sample' },
-            { name: 'keywords', content: 'sample, something' },
+            { name: 'description', content: 'A curated buyers guide for beautiful surfboards and surf inspired products' },
+            { name: 'keywords', content: 'surf, surfing, surboard, surfboards, buyers guide, collections' },
           ]}
         />
 
@@ -309,8 +309,7 @@ class Layout extends PureComponent {
           <div className="brand-column">
             <div className="brand-logo">SURF CLUB 서프 클럽</div>
             <div className="brand-byline">
-              A CURATED COLLECTION OF SIMPLY BEAUTIFUL SURFBOARDS AND SURF
-              INSPIRED PRODUCTS
+            A curated buyers guide for beautiful surfboards and surf inspired products
             </div>
 
             <div className="flex-wrap">
