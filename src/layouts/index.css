@@ -447,6 +447,7 @@ body {
 
   .board-details {
     padding: 30px;
+    padding-bottom: 100px;
   }
 
   .board-detail--name {
