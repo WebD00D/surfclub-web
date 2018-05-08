@@ -458,39 +458,7 @@ class Layout extends PureComponent {
             </div>
           ) : (
             <div className="content content-auth">
-              <div className="auth-box">
-                <div className="brand-byline" style={{ padding: '0px' }}>
-                  <b>
-                    BROWSE, SHOP, AND SELL KICKASS <br /> SURFBOARDS AND
-                    SURF-INSPIRED PRODUCTS.
-                  </b>
-                </div>
-                <div
-                  className="brand-byline"
-                  style={{ padding: '0px', marginTop: '0px' }}
-                >
-                  JUST YOUR EMAIL PLEASE.
-                </div>
-                <input
-                  type="text"
-                  onChange={e => this.setState({ email: e.target.value })}
-                />
-                <br />
-                <button onClick={() => this.authenticateUser()}>
-                  JOIN SURF CLUB
-                </button>
-
-                {this.state.error ? (
-                  <div
-                    className="brand-byline"
-                    style={{ padding: '0px', marginTop: '12px', color: 'red' }}
-                  >
-                    INVALID EMAIL
-                  </div>
-                ) : (
-                  ''
-                )}
-              </div>
+              
             </div>
           )}
 
