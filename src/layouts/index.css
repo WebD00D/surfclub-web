@@ -535,3 +535,7 @@ body {
     position: fixed;
   }
 }
+
+iframe {
+  border: none;
+}

@@ -43,6 +43,7 @@ class Layout extends PureComponent {
       price: 'price',
       listDate: 'listdate',
       productType: '',
+      spotify: '',
 
       menuHidden: true,
 
@@ -87,7 +88,8 @@ class Layout extends PureComponent {
     description,
     price,
     listdate,
-    productType
+    productType,
+    spotify
   ) {
     ReactGA.event({
       category: 'PRODUCT CLICK',
@@ -108,6 +110,7 @@ class Layout extends PureComponent {
       price: price,
       listDate: listdate,
       productType: productType,
+      spotify: spotify,
     })
 
     setTimeout(
@@ -263,7 +266,8 @@ class Layout extends PureComponent {
                 board.node.description,
                 board.node.price,
                 board.node.createdAt,
-                board.node.productType.type
+                board.node.productType.type,
+                board.node.spotifyEmbedCode
               )
             }
             id={board.node.id}
@@ -276,6 +280,7 @@ class Layout extends PureComponent {
             price={board.node.price}
             productType={board.node.productType.type}
             listDate={board.node.createdAt}
+            spotify={board.node.spotifyEmbedCode}
           />
         )
       }.bind(this)
@@ -301,41 +306,37 @@ class Layout extends PureComponent {
         />
 
         <div className="site-wrapper">
-
-
           <div className="brand-column">
             <div className="brand-logo">SURF CLUB 서프 클럽</div>
             <div className="brand-byline">
-              A CURATED COLLECTION OF SIMPLY BEAUTIFUL
-              SURFBOARDS AND SURF INSPIRED PRODUCTS
+              A CURATED COLLECTION OF SIMPLY BEAUTIFUL SURFBOARDS AND SURF
+              INSPIRED PRODUCTS
             </div>
 
             <div className="flex-wrap">
+              {this.state.authenticated ? (
+                <ReactGA.OutboundLink
+                  eventLabel="List a Board Clicked"
+                  to="https://surfclub.typeform.com/to/O2TMlF"
+                  target="_blank"
+                  className="brand-byline"
+                  style={{ color: 'blue', paddingRight: '0px' }}
+                >
+                  LIST A BOARD
+                </ReactGA.OutboundLink>
+              ) : (
+                ''
+              )}
 
-            {this.state.authenticated ? (
               <ReactGA.OutboundLink
-                eventLabel="List a Board Clicked"
-                to="https://surfclub.typeform.com/to/O2TMlF"
+                eventLabel="Went to our INSTA"
+                to="https://www.instagram.com/joinsurfclub/"
                 target="_blank"
                 className="brand-byline"
-                style={{ color: 'blue', paddingRight: "0px" }}
+                style={{ color: 'blue' }}
               >
-                LIST A BOARD
+                INSTA
               </ReactGA.OutboundLink>
-            ) : (
-              ''
-            )}
-
-            <ReactGA.OutboundLink
-              eventLabel="Went to our INSTA"
-              to="https://www.instagram.com/joinsurfclub/"
-              target="_blank"
-              className="brand-byline"
-              style={{ color: 'blue' }}
-            >
-              INSTA
-            </ReactGA.OutboundLink>
-
             </div>
 
             <div
@@ -391,17 +392,37 @@ class Layout extends PureComponent {
                   <div className="board-detail--name">
                     {this.state.headline}
                   </div>
-                  <div className="board-meta" style={{marginBottom: '14px', marginTop: "0px" , maxWidth: "320px", paddingLeft: "0px"}}>
+                  <div
+                    className="board-meta"
+                    style={{
+                      marginBottom: '14px',
+                      marginTop: '0px',
+                      maxWidth: '320px',
+                      paddingLeft: '0px',
+                    }}
+                  >
                     <div>{this.state.description} </div>
-                    </div>
+                  </div>
                   <div className="board-meta-wrap">
-                    <div
-                      className="board-photo"
-                      style={{
-                        backgroundImage: `url(${this.state.photo})`,
-                        opacity: this.state.opacity,
-                      }}
-                    />
+                    {this.state.productType === 'MUSIC' ? (
+                      <iframe
+                        src={this.state.spotify}
+                        width="300"
+                        height="380"
+                        frameborder="0"
+                        allowtransparency="true"
+                        allow="encrypted-media"
+                      />
+                    ) : (
+                      <div
+                        className="board-photo"
+                        style={{
+                          backgroundImage: `url(${this.state.photo})`,
+                          opacity: this.state.opacity,
+                        }}
+                      />
+                    )}
+
                     <div
                       className="loader"
                       style={{ zIndex: 1, opacity: this.state.loaderOpacity }}
@@ -410,7 +431,18 @@ class Layout extends PureComponent {
                       <div>{this.state.price} </div>
                       <div>{this.state.brand}</div>
                       <div>{this.state.name}</div>
-                      <div>
+
+
+                      { this.state.spotify ? <div>
+                        <ReactGA.OutboundLink
+                          eventLabel="Product Purchase Link Clicked"
+                          to={this.state.spotify}
+                          target="_blank"
+                          style={{ color: 'blue' }}
+                        >
+                          LISTEN
+                        </ReactGA.OutboundLink>
+                      </div> : <div>
                         <ReactGA.OutboundLink
                           eventLabel="Product Purchase Link Clicked"
                           to={this.state.productLink}
@@ -419,7 +451,10 @@ class Layout extends PureComponent {
                         >
                           BUY IT
                         </ReactGA.OutboundLink>
-                      </div>
+                      </div>  }
+
+
+
                     </div>
                   </div>
                 </div>
@@ -429,7 +464,10 @@ class Layout extends PureComponent {
             <div className="content content-auth">
               <div className="auth-box">
                 <div className="brand-byline" style={{ padding: '0px' }}>
-                  <b>BROWSE, SHOP, AND SELL KICKASS <br /> SURFBOARDS AND SURF-INSPIRED PRODUCTS.</b>
+                  <b>
+                    BROWSE, SHOP, AND SELL KICKASS <br /> SURFBOARDS AND
+                    SURF-INSPIRED PRODUCTS.
+                  </b>
                 </div>
                 <div
                   className="brand-byline"
@@ -460,12 +498,9 @@ class Layout extends PureComponent {
             </div>
           )}
 
-
           <div className="filter-bar">
             HAVE A PRODUCT TO FEATURE? SLIDE INTO OUR DMS.
           </div>
-
-
         </div>
       </div>
     )
@@ -495,6 +530,7 @@ export const query = graphql`
           purchaseLink
           description
           createdAt
+          spotifyEmbedCode
           productType {
             type
           }
