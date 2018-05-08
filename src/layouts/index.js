@@ -452,8 +452,6 @@ class Layout extends PureComponent {
                         </ReactGA.OutboundLink>
                       </div>  }
 
-
-
                     </div>
                   </div>
                 </div>

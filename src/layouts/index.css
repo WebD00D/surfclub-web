@@ -221,6 +221,7 @@ body {
   flex: 1;
   flex-direction: column;
   padding: 60px;
+  padding-bottom: 150px;
 }
 
 .board-detail--date {
