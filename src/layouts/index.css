@@ -149,6 +149,11 @@ body {
   font-size: 13px;
 }
 
+.board-list-item--sponsored {
+  background-color: #000000;
+  color: #FFFFFF;
+}
+
 .board-list-item:hover {
   border-bottom: 1px solid #f5f5f5;
   border-top: 1px solid #f5f5f5;
@@ -168,6 +173,10 @@ body {
   letter-spacing: 1px;
   font-size: 10px;
   text-transform: uppercase;
+}
+
+.board-list-price--sponsored {
+  color: tan;
 }
 
 .board-list-type-price {

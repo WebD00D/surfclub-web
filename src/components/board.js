@@ -67,14 +67,24 @@ class Board extends React.Component {
 
   render() {
 
+    let boardListClass = cx({
+      'board-list-item': true,
+      'board-list-item--sponsored': this.props.productType === "SPONSORED",
+    })
+
+    let postTypeClass = cx({
+      'board-list-price': true,
+      'board-list-price--sponsored': this.props.productType === "SPONSORED",
+    })
+
 
     return (
 
       <div
         onMouseOver={ () => this.props.handleMouseOver() }
         onMouseOut={ () => this.props.handleMouseOut() }
-        onClick={()=> this.props.handleClick()}  className="board-list-item">
-        <div className="board-list-price">{this.props.productType}</div>
+        onClick={()=> this.props.handleClick()}  className={boardListClass}>
+        <div className={postTypeClass}>{this.props.productType}</div>
 
         <div className="board-list-name">
           <div>{this.props.headline}</div>
