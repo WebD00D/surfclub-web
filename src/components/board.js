@@ -69,12 +69,12 @@ class Board extends React.Component {
 
     let boardListClass = cx({
       'board-list-item': true,
-      'board-list-item--sponsored': this.props.productType === "SPONSORED",
+      'board-list-item--sponsored': this.props.featured || this.props.productType === "SPONSORED",
     })
 
     let postTypeClass = cx({
       'board-list-price': true,
-      'board-list-price--sponsored': this.props.productType === "SPONSORED",
+      'board-list-price--sponsored': this.props.featured ||this.props.productType === "SPONSORED"
     })
 
 

@@ -14,6 +14,9 @@ import cx from 'classnames'
 
 import { Fullpage, Slide, HorizontalSlider } from 'fullpage-react'
 
+
+import ReactMarkdown from 'react-markdown';
+
 import ReactGA from 'react-ga'
 
 class Layout extends PureComponent {
@@ -44,6 +47,7 @@ class Layout extends PureComponent {
       listDate: 'listdate',
       productType: '',
       spotify: '',
+      longDescription: "",
 
       menuHidden: true,
 
@@ -58,6 +62,7 @@ class Layout extends PureComponent {
   }
 
   componentDidMount() {
+
     ReactGA.initialize('UA-118033416-1')
 
     ReactGA.initialize('UA-118033416-1', {
@@ -89,7 +94,8 @@ class Layout extends PureComponent {
     price,
     listdate,
     productType,
-    spotify
+    spotify,
+    longDescription
   ) {
     ReactGA.event({
       category: 'PRODUCT CLICK',
@@ -97,6 +103,8 @@ class Layout extends PureComponent {
     })
 
     window.scrollTo(0, 0)
+
+    console.log(longDescription)
 
     this.setState({
       opacity: '0',
@@ -111,6 +119,7 @@ class Layout extends PureComponent {
       listDate: listdate,
       productType: productType,
       spotify: spotify,
+      longDescription: longDescription
     })
 
     setTimeout(
@@ -257,6 +266,16 @@ class Layout extends PureComponent {
             }
             handleMouseOut={() => this.setState({ previewPhoto: '' })}
             handleClick={() =>
+
+
+              {
+              let longDescription = '';
+
+              if (board.node.longDescription !== null) {
+                longDescription = board.node.longDescription.longDescription;
+              }
+
+
               this.setDetails(
                 board.node.headline,
                 board.node.brand,
@@ -267,8 +286,10 @@ class Layout extends PureComponent {
                 board.node.price,
                 board.node.createdAt,
                 board.node.productType.type,
-                board.node.spotifyEmbedCode
+                board.node.spotifyEmbedCode,
+                longDescription
               )
+            }
             }
             id={board.node.id}
             headline={board.node.headline}
@@ -281,6 +302,8 @@ class Layout extends PureComponent {
             productType={board.node.productType.type}
             listDate={board.node.createdAt}
             spotify={board.node.spotifyEmbedCode}
+            featured={board.node.featured}
+
           />
         )
       }.bind(this)
@@ -300,8 +323,16 @@ class Layout extends PureComponent {
         <Helmet
           title="Surf Club"
           meta={[
-            { name: 'description', content: 'A curated buyers guide for beautifully designed surfboards and surf inspired goods' },
-            { name: 'keywords', content: 'surf, surfing, surboard, surfboards, buyers guide, collections' },
+            {
+              name: 'description',
+              content:
+                'A curated buyers guide for beautifully designed surfboards and surf inspired goods',
+            },
+            {
+              name: 'keywords',
+              content:
+                'surf, surfing, surboard, surfboards, buyers guide, collections',
+            },
           ]}
         />
 
@@ -309,7 +340,8 @@ class Layout extends PureComponent {
           <div className="brand-column">
             <div className="brand-logo">SURF CLUB 서프 클럽</div>
             <div className="brand-byline">
-            A curated buyers guide for beautifully designed surfboards and surf inspired goods
+              A curated buyers guide for beautifully designed surfboards and
+              surf inspired goods
             </div>
 
             <div className="flex-wrap">
@@ -396,11 +428,22 @@ class Layout extends PureComponent {
                     style={{
                       marginBottom: '14px',
                       marginTop: '0px',
-                      maxWidth: '320px',
+                      maxWidth: '600px',
                       paddingLeft: '0px',
                     }}
                   >
                     <div>{this.state.description} </div>
+                  </div>
+                  <div
+                    className="board-meta"
+                    style={{
+                      marginBottom: '14px',
+                      marginTop: '0px',
+                      maxWidth: '600px',
+                      paddingLeft: '0px',
+                    }}
+                  >
+                    <div><ReactMarkdown source={this.state.longDescription} /> </div>
                   </div>
                   <div className="board-meta-wrap">
                     {this.state.productType === 'MUSIC' ? (
@@ -430,41 +473,45 @@ class Layout extends PureComponent {
                       <div>{this.state.brand}</div>
                       <div>{this.state.name}</div>
 
+                      {this.state.spotify ? (
+                        <div>
+                          <ReactGA.OutboundLink
+                            eventLabel="Product Purchase Link Clicked"
+                            to={this.state.spotify}
+                            target="_blank"
+                            style={{ color: 'blue' }}
+                          >
+                            LISTEN
+                          </ReactGA.OutboundLink>
+                        </div>
+                      ) : (
+                        <div>
 
-                      { this.state.spotify ? <div>
-                        <ReactGA.OutboundLink
-                          eventLabel="Product Purchase Link Clicked"
-                          to={this.state.spotify}
-                          target="_blank"
-                          style={{ color: 'blue' }}
-                        >
-                          LISTEN
-                        </ReactGA.OutboundLink>
-                      </div> : <div>
-                        <ReactGA.OutboundLink
-                          eventLabel="Product Purchase Link Clicked"
-                          to={this.state.productLink}
-                          target="_blank"
-                          style={{ color: 'blue' }}
-                        >
-                          BUY IT
-                        </ReactGA.OutboundLink>
-                      </div>  }
+                          { this.state.productLink ? <ReactGA.OutboundLink
+                            eventLabel="Product Purchase Link Clicked"
+                            to={this.state.productLink}
+                            target="_blank"
+                            style={{ color: 'blue' }}
+                          >
+                            BUY IT
+                          </ReactGA.OutboundLink> : "" }
 
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
               )}
             </div>
           ) : (
-            <div className="content content-auth">
-
-            </div>
+            <div className="content content-auth" />
           )}
 
-          <a target="_blank" href="https://www.instagram.com/joinsurfclub/"><div className="filter-bar">
-            HAVE A PRODUCT TO FEATURE? SLIDE INTO OUR DMS.
-          </div></a>
+          <a target="_blank" href="https://www.instagram.com/joinsurfclub/">
+            <div className="filter-bar">
+              HAVE A PRODUCT TO FEATURE? SLIDE INTO OUR DMS.
+            </div>
+          </a>
         </div>
       </div>
     )
@@ -483,29 +530,33 @@ export default connect(mapStateToProps)(Layout)
 
 export const query = graphql`
   query BoardQuery {
-    allContentfulProductPost {
-      edges {
-        node {
+
+  allContentfulProductPost {
+    edges {
+      node {
+        id
+        headline
+        brand
+        productName
+        purchaseLink
+        description
+        featured
+        longDescription {
           id
-          headline
-          brand
-          price
-          productName
-          purchaseLink
-          description
-          createdAt
-          spotifyEmbedCode
-          productType {
-            type
-          }
-          productImage {
-            id
-            file {
-              url
-            }
+          longDescription
+        }
+        productType {
+          type
+        }
+        productImage {
+          id
+          file {
+            url
           }
         }
       }
     }
   }
+}
+
 `
